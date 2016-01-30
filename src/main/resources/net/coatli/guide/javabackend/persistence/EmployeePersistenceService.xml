@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="net.coatli.guide.javabackend.persistence.EmployeePersistenceService">
+
+  <resultMap id="employeeResultMap"
+             type="Employee">
+    <result property="key"        javaType="string"     column="EMP_ID"       jdbcType="VARCHAR" />
+    <result property="name"       javaType="string"     column="NAME"         jdbcType="VARCHAR" />
+    <result property="birthday"   javaType="date"       column="BIRTHDAY"     jdbcType="DATE" />
+  </resultMap>
+  
+  <insert id="createEmployee"
+          parameterType="Employee">
+    INSERT INTO EMPLOYEE (
+      EMP_ID,
+      NAME,
+      BIRTHDAY
+    )
+    VALUES (
+      #{key,        mode=IN, javaType=String, jdbcType=VARCHAR},
+      #{firstName,  mode=IN, javaType=String, jdbcType=VARCHAR},
+      #{birthday,   mode=IN, javaType=Date,   jdbcType=DATE}
+    )
+  </insert>
+  
+  <select id="requestEmployee"
+          parameterType="RequestEmployeeEvent"
+          resultMap="employeeResultMap">
+    SELECT
+      EMP_ID,
+      NAME,
+      BIRTHDAY
+    FROM
+      EMPLOYEE
+    WHERE
+      EMP_ID = #{key, mode=IN, javaType=String, jdbcType=VARCHAR}
+  </select>
+  
+  <update id="updateEmployee">
+    UPDATE
+      EMPLOYEE
+    SET
+      NAME      = #{firstName,  mode=IN, javaType=String, jdbcType=VARCHAR},
+      BIRTHDAY  = #{birthday,   mode=IN, javaType=Date,   jdbcType=DATE}
+    WHERE
+      EMP_ID = #{key, mode=IN, javaType=String, jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="deleteEmployee">
+    DELETE FROM
+      EMPLOYEE
+    WHERE
+      EMP_ID = #{key, mode=IN, javaType=UUID, jdbcType=OTHER}
+  </delete>
+  
+  <select id="requestAllEmployees"
+          parameterType="RequestAllEmployeesEvent"
+          resultMap="requestAllEmployeesResultMap">
+    SELECT
+      EMP_ID,
+      NAME,
+      BIRTHDAY
+    FROM
+      EMPLOYEE
+    <where>
+      <if test="name != null">
+      NAME = #{name, mode=IN, javaType=String, jdbcType=VARCHAR}
+      </if>
+      <if test="birthday != null">
+      AND BIRTHDAY = #{birthday, mode=IN, javaType=Date, jdbcType=DATE}
+      </if>
+    </where>
+  </select>
+
+</mapper>
