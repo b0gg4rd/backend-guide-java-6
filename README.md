@@ -1,17 +1,15 @@
 # Backend Guide for Java
 
-A reference for a Java's backend with CXF, Spring and MyBatis.
+A reference for backend Java with CXF, Spring and MyBatis.
 
 ## Requirements
 
 - JDK 1.8 update 65
 - Apache Maven 3.3.9
 
-## Build launchers
+## Building
 
-The common Eclipse's run launchers are at src/main/confg.
-
-For CLI use the follow commands:
+For CLI use the follow common commands:
 
 - `$ mvn clean install`
 - `$ mvn clean install -P dev`

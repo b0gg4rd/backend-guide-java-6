@@ -14,7 +14,7 @@
   <packaging>war</packaging>
 
   <name>Backend Guide for Java</name>
-  <description>A reference for a Java backend with CXF, Spring and MyBatis.</description>
+  <description>A reference for backend Java with CXF, Spring and MyBatis.</description>
   <url />
   <organization>
     <name />
@@ -39,8 +39,8 @@
     <project.build.filterDirectory>${basedir}/src/main/filters</project.build.filterDirectory>
     
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.build.jdk.source>1.6</project.build.jdk.source>
-    <project.build.jdk.target>1.6</project.build.jdk.target>
+    <project.build.jdk.source>1.8</project.build.jdk.source>
+    <project.build.jdk.target>1.8</project.build.jdk.target>
     
     <lifecycle.mapping.version>1.0.0</lifecycle.mapping.version>
     <properties.maven.plugin.version>1.0-alpha-2</properties.maven.plugin.version>
@@ -56,6 +56,7 @@
     <commons.lang.version>3.4</commons.lang.version>
     <slf4j.log4j.version>1.7.12</slf4j.log4j.version>
     <junit.version>4.11</junit.version>
+    <mockito.version>1.10.19</mockito.version>
   </properties>
 
   <dependencies>
@@ -73,6 +74,12 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
       <version>${spring.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -105,6 +112,13 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
       <version>${spring.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>${mockito.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   
@@ -207,6 +221,15 @@
         <groupId>org.flywaydb</groupId>
         <artifactId>flyway-maven-plugin</artifactId>
         <version>${flyway.maven.plugin.version}</version>
+        <executions>
+				  <execution>
+				    <id>flyway-migrate</id>
+				    <phase>pre-integration-test</phase>
+				    <goals>
+				      <goal>migrate</goal>
+				    </goals>
+				  </execution>
+				</executions>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -254,20 +277,6 @@
                 <phase>post-integration-test</phase>
                 <goals>
                   <goal>stop</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-maven-plugin</artifactId>
-            <version>${flyway.maven.plugin.version}</version>
-            <executions>
-              <execution>
-                <id>flyway-migrate</id>
-                <phase>pre-integration-test</phase>
-                <goals>
-                  <goal>migrate</goal>
                 </goals>
               </execution>
             </executions>

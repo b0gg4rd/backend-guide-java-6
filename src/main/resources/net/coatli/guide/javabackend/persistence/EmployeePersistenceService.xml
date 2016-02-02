@@ -10,17 +10,31 @@
     <result property="birthday"   javaType="date"       column="BIRTHDAY"     jdbcType="DATE" />
   </resultMap>
   
+  <sql id="employeeAllColumns">
+	  EMP_ID,
+	  FIRST_NAME,
+	  PATERNAL_SURNAME,
+	  MATERNAL_SURNAME,
+	  BIRTHDAY,
+	  DEPARTMENT,
+	  ROL,
+	  STATUS
+  </sql>
+  
   <insert id="createEmployee"
           parameterType="Employee">
     INSERT INTO EMPLOYEE (
-      EMP_ID,
-      NAME,
-      BIRTHDAY
+      <include refid="emplooyeAllColumns" />
     )
     VALUES (
-      #{key,        mode=IN, javaType=String, jdbcType=VARCHAR},
-      #{firstName,  mode=IN, javaType=String, jdbcType=VARCHAR},
-      #{birthday,   mode=IN, javaType=Date,   jdbcType=DATE}
+      #{key,              mode=IN, javaType=String,  jdbcType=VARCHAR},
+      #{firstName,        mode=IN, javaType=String,  jdbcType=VARCHAR},
+      #{paternalSurname,  mode=IN, javaType=String,  jdbcType=VARCHAR},
+      #{maternalSurname,  mode=IN, javaType=String,  jdbcType=VARCHAR},
+      #{birthday,         mode=IN, javaType=Date,    jdbcType=DATE},
+      #{department.key,   mode=IN, javaType=Integer, jdbcType=INTEGER},
+      #{rol.key,          mode=IN, javaType=Integer, jdbcType=INTEGER}
+      #{status.key,       mode=IN, javaType=Integer, jdbcType=INTEGER}
     )
   </insert>
   
@@ -28,9 +42,7 @@
           parameterType="RequestEmployeeEvent"
           resultMap="employeeResultMap">
     SELECT
-      EMP_ID,
-      NAME,
-      BIRTHDAY
+      <include refid="emplooyeAllColumns" />
     FROM
       EMPLOYEE
     WHERE
@@ -58,14 +70,12 @@
           parameterType="RequestAllEmployeesEvent"
           resultMap="requestAllEmployeesResultMap">
     SELECT
-      EMP_ID,
-      NAME,
-      BIRTHDAY
+      <include refid="emplooyeAllColumns" />
     FROM
       EMPLOYEE
     <where>
-      <if test="name != null">
-      NAME = #{name, mode=IN, javaType=String, jdbcType=VARCHAR}
+      <if test="firstName != null">
+      NAME = #{firstName, mode=IN, javaType=String, jdbcType=VARCHAR}
       </if>
       <if test="birthday != null">
       AND BIRTHDAY = #{birthday, mode=IN, javaType=Date, jdbcType=DATE}

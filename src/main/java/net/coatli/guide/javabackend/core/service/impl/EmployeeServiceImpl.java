@@ -25,7 +25,7 @@ import net.coatli.guide.javabackend.persistence.EmployeePersistenceService;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-  private static final int ZERO_ROWS_AFFECTED = 0;
+  private static final int FAILURE = 0;
 
   @Autowired
   private EmployeePersistenceService employeePersistenceService;
@@ -33,7 +33,11 @@ public class EmployeeServiceImpl implements EmployeeService {
   @Override
   public EmployeeCreatedEvent createEmployee(final CreateEmployeeEvent createEmployeeEvent) {
 
-    return ZERO_ROWS_AFFECTED == employeePersistenceService.createEmployee(createEmployeeEvent) ?
+    if (createEmployeeEvent == null || createEmployeeEvent.getEmployee() == null) {
+      return new EmployeeCreatedEvent(false);
+    }
+
+    return FAILURE == employeePersistenceService.createEmployee(createEmployeeEvent) ?
             new EmployeeCreatedEvent(false) :
             new EmployeeCreatedEvent(true, createEmployeeEvent.getEmployee().getKey());
 
@@ -52,7 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService {
   @Override
   public EmployeeUpdatedEvent updateEmployee(final UpdateEmployeeEvent updateEmployeeEvent) {
 
-    return ZERO_ROWS_AFFECTED == employeePersistenceService.updateEmployee(updateEmployeeEvent) ?
+    return FAILURE == employeePersistenceService.updateEmployee(updateEmployeeEvent) ?
             new EmployeeUpdatedEvent(false) :
             new EmployeeUpdatedEvent(true);
   }
@@ -60,7 +64,7 @@ public class EmployeeServiceImpl implements EmployeeService {
   @Override
   public EmployeeDeletedEvent deleteEmployee(final DeleteEmployeeEvent deleteEmployeeEvent) {
 
-    return ZERO_ROWS_AFFECTED == employeePersistenceService.deleteEmployee(deleteEmployeeEvent) ?
+    return FAILURE == employeePersistenceService.deleteEmployee(deleteEmployeeEvent) ?
             new EmployeeDeletedEvent(false) :
             new EmployeeDeletedEvent(true);
   }

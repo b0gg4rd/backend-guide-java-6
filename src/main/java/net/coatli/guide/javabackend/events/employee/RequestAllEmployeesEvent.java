@@ -4,15 +4,15 @@ import java.util.Date;
 
 public class RequestAllEmployeesEvent {
 
-  private String name;
+  private String firstName;
   private Date birthday;
 
   public String getName() {
-    return name;
+    return firstName;
   }
 
   public void setName(final String name) {
-    this.name = name;
+    this.firstName = name;
   }
 
   public Date getBirthday() {
