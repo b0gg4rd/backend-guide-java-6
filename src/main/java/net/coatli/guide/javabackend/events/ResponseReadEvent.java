@@ -7,7 +7,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class ResponseReadEvent {
 
-  protected final boolean domainFound;
+  protected boolean domainFound;
+
+  public ResponseReadEvent() {
+  }
 
   public ResponseReadEvent(final boolean domainFound) {
     this.domainFound = domainFound;
@@ -17,9 +20,13 @@ public class ResponseReadEvent {
     return domainFound;
   }
 
+  public void setDomainFound(final boolean domainFound) {
+    this.domainFound = domainFound;
+  }
+
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).append("domainFound", domainFound).toString();
+    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).appendSuper(super.toString()).append("domainFound", domainFound).toString();
   }
 
   @Override

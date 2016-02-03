@@ -43,6 +43,8 @@
     <property name="dataSource" ref="dataSource" />
     <property name="typeAliasesPackage"
               value="net.coatli.guide.javabackend.core.domain,net.coatli.guide.javabackend.events" />
+    <property name="typeHandlersPackage"
+              value="net.coatli.guide.javabackend.typehandler" />
   </bean>
   
   <!-- scan for mappers and let them be autowired -->

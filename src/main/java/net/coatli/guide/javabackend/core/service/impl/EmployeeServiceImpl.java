@@ -74,7 +74,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     final List<Employee> allEmployees = employeePersistenceService.requestAllEmployees(requestAllInvoicesEvent);
 
-    return new ResponseAllEmployeesEvent(allEmployees.isEmpty(), allEmployees);
+    return new ResponseAllEmployeesEvent(!allEmployees.isEmpty(), allEmployees);
   }
 
 }

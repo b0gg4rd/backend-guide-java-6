@@ -3,11 +3,10 @@
 
 <mapper namespace="net.coatli.guide.javabackend.persistence.EmployeePersistenceService">
 
-  <resultMap id="employeeResultMap"
-             type="Employee">
-    <result property="key"        javaType="string"     column="EMP_ID"       jdbcType="VARCHAR" />
-    <result property="name"       javaType="string"     column="NAME"         jdbcType="VARCHAR" />
-    <result property="birthday"   javaType="date"       column="BIRTHDAY"     jdbcType="DATE" />
+  <resultMap id="employeeResultMap" type="Employee">
+    <result property="key"          javaType="java.util.UUID"    column="EMP_ID"       jdbcType="OTHER"   typeHandler="net.coatli.guide.javabackend.typehandler.UUIDTypeHandler" />
+    <result property="firstName"    javaType="string"            column="FISRT_NAME"   jdbcType="VARCHAR" />
+    <result property="birthday"     javaType="date"              column="BIRTHDAY"     jdbcType="DATE" />
   </resultMap>
   
   <sql id="employeeAllColumns">
@@ -24,17 +23,17 @@
   <insert id="createEmployee"
           parameterType="Employee">
     INSERT INTO EMPLOYEE (
-      <include refid="emplooyeAllColumns" />
+      <include refid="employeeAllColumns" />
     )
     VALUES (
-      #{key,              mode=IN, javaType=String,  jdbcType=VARCHAR},
-      #{firstName,        mode=IN, javaType=String,  jdbcType=VARCHAR},
-      #{paternalSurname,  mode=IN, javaType=String,  jdbcType=VARCHAR},
-      #{maternalSurname,  mode=IN, javaType=String,  jdbcType=VARCHAR},
-      #{birthday,         mode=IN, javaType=Date,    jdbcType=DATE},
-      #{department.key,   mode=IN, javaType=Integer, jdbcType=INTEGER},
-      #{rol.key,          mode=IN, javaType=Integer, jdbcType=INTEGER}
-      #{status.key,       mode=IN, javaType=Integer, jdbcType=INTEGER}
+      #{employee.key,              mode=IN, javaType=java.util.UUID,   jdbcType=OTHER},
+      #{employee.firstName,        mode=IN, javaType=String,           jdbcType=VARCHAR},
+      #{employee.paternalSurname,  mode=IN, javaType=String,           jdbcType=VARCHAR},
+      #{employee.maternalSurname,  mode=IN, javaType=String,           jdbcType=VARCHAR},
+      #{employee.birthday,         mode=IN, javaType=Date,             jdbcType=DATE},
+      #{employee.department.key,   mode=IN, javaType=Integer,          jdbcType=INTEGER},
+      #{employee.rol.key,          mode=IN, javaType=Integer,          jdbcType=INTEGER},
+      #{employee.status.key,       mode=IN, javaType=Integer,          jdbcType=INTEGER}
     )
   </insert>
   
@@ -42,11 +41,11 @@
           parameterType="RequestEmployeeEvent"
           resultMap="employeeResultMap">
     SELECT
-      <include refid="emplooyeAllColumns" />
+      <include refid="employeeAllColumns" />
     FROM
       EMPLOYEE
     WHERE
-      EMP_ID = #{key, mode=IN, javaType=String, jdbcType=VARCHAR}
+      EMP_ID = #{key, mode=IN, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=net.coatli.guide.javabackend.typehandler.UUIDTypeHandler}
   </select>
   
   <update id="updateEmployee">
@@ -56,26 +55,29 @@
       NAME      = #{firstName,  mode=IN, javaType=String, jdbcType=VARCHAR},
       BIRTHDAY  = #{birthday,   mode=IN, javaType=Date,   jdbcType=DATE}
     WHERE
-      EMP_ID = #{key, mode=IN, javaType=String, jdbcType=VARCHAR}
+      EMP_ID = #{key, mode=IN, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=net.coatli.guide.javabackend.typehandler.UUIDTypeHandler}
   </update>
   
   <delete id="deleteEmployee">
     DELETE FROM
       EMPLOYEE
     WHERE
-      EMP_ID = #{key, mode=IN, javaType=UUID, jdbcType=OTHER}
+      EMP_ID = #{key, mode=IN, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=net.coatli.guide.javabackend.typehandler.UUIDTypeHandler}
   </delete>
   
   <select id="requestAllEmployees"
           parameterType="RequestAllEmployeesEvent"
-          resultMap="requestAllEmployeesResultMap">
+          resultMap="employeeResultMap">
     SELECT
-      <include refid="emplooyeAllColumns" />
+      <include refid="employeeAllColumns" />
     FROM
       EMPLOYEE
     <where>
-      <if test="firstName != null">
-      NAME = #{firstName, mode=IN, javaType=String, jdbcType=VARCHAR}
+      <if test="departmentKey != null">
+      DEPARTMENT = #{departmentKey, mode=IN, javaType=Integer, jdbcType=NUMERIC}
+      </if>
+      <if test="rolKey != null">
+      AND ROL = #{rolKey, mode=IN, javaType=Integer, jdbcType=NUMERIC}
       </if>
       <if test="birthday != null">
       AND BIRTHDAY = #{birthday, mode=IN, javaType=Date, jdbcType=DATE}

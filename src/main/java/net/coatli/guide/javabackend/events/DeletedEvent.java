@@ -7,7 +7,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class DeletedEvent {
 
-  protected final boolean domainDeleted;
+  protected boolean domainDeleted;
+
+  public DeletedEvent() {
+  }
 
   public DeletedEvent(final boolean domainDeleted) {
     this.domainDeleted = domainDeleted;
@@ -17,9 +20,13 @@ public class DeletedEvent {
     return domainDeleted;
   }
 
+  public void setDomainDeleted(final boolean domainDeleted) {
+    this.domainDeleted = domainDeleted;
+  }
+
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).append("domainDeleted", domainDeleted).toString();
+    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).appendSuper(super.toString()).append("domainDeleted", domainDeleted).toString();
   }
 
   @Override
@@ -35,5 +42,6 @@ public class DeletedEvent {
   public int hashCode() {
     return new HashCodeBuilder().append(domainDeleted).toHashCode();
   }
+
 
 }

@@ -12,6 +12,10 @@ public class ResponseEmployeeEvent extends ResponseReadEvent {
 
   private Employee employee;
 
+  public ResponseEmployeeEvent() {
+    super();
+  }
+
   public ResponseEmployeeEvent(final boolean domainFound) {
     super(domainFound);
   }
@@ -31,7 +35,7 @@ public class ResponseEmployeeEvent extends ResponseReadEvent {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).append("employee", employee).toString();
+    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).appendSuper(super.toString()).append("employee", employee).toString();
   }
 
   @Override
@@ -40,12 +44,12 @@ public class ResponseEmployeeEvent extends ResponseReadEvent {
       return false;
     }
     final ResponseEmployeeEvent castOther = (ResponseEmployeeEvent) other;
-    return new EqualsBuilder().append(employee, castOther.employee).isEquals();
+    return new EqualsBuilder().appendSuper(super.equals(other)).append(employee, castOther.employee).isEquals();
   }
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder().append(employee).toHashCode();
+    return new HashCodeBuilder().appendSuper(super.hashCode()).append(employee).toHashCode();
   }
 
 }

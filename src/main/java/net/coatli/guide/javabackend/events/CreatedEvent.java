@@ -7,7 +7,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class CreatedEvent {
 
-  protected final boolean domainCreated;
+  protected boolean domainCreated;
+
+  public CreatedEvent() {
+  }
 
   public CreatedEvent(final boolean domainCreated) {
     this.domainCreated = domainCreated;
@@ -17,9 +20,13 @@ public class CreatedEvent {
     return domainCreated;
   }
 
+  public void setDomainCreated(final boolean domainCreated) {
+    this.domainCreated = domainCreated;
+  }
+
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).append("domainCreated", domainCreated).toString();
+    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).appendSuper(super.toString()).append("domainCreated", domainCreated).toString();
   }
 
   @Override

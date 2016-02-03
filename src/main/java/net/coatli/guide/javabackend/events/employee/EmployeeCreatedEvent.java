@@ -13,6 +13,11 @@ public class EmployeeCreatedEvent extends CreatedEvent {
 
   private UUID newKey;
 
+  public EmployeeCreatedEvent() {
+    super();
+    this.newKey = null;
+  }
+
   public EmployeeCreatedEvent(final boolean domainCreated) {
     super(domainCreated);
   }
@@ -32,7 +37,7 @@ public class EmployeeCreatedEvent extends CreatedEvent {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).append("newKey", newKey).toString();
+    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).appendSuper(super.toString()).append("newKey", newKey).toString();
   }
 
   @Override
@@ -41,12 +46,12 @@ public class EmployeeCreatedEvent extends CreatedEvent {
       return false;
     }
     final EmployeeCreatedEvent castOther = (EmployeeCreatedEvent) other;
-    return new EqualsBuilder().append(newKey, castOther.newKey).isEquals();
+    return new EqualsBuilder().appendSuper(super.equals(other)).append(newKey, castOther.newKey).isEquals();
   }
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder().append(newKey).toHashCode();
+    return new HashCodeBuilder().appendSuper(super.hashCode()).append(newKey).toHashCode();
   }
 
 }

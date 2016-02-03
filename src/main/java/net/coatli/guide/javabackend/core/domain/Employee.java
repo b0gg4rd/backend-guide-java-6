@@ -90,7 +90,7 @@ public class Employee {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).append("key", key).append("firstName", firstName).append("paternalSurname", paternalSurname).append("maternalSurname", maternalSurname).append("birthday", birthday).append("department", department).append("rol", rol).append("status", status).toString();
+    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).appendSuper(super.toString()).append("key", key).append("firstName", firstName).append("paternalSurname", paternalSurname).append("maternalSurname", maternalSurname).append("birthday", birthday).append("department", department).append("rol", rol).append("status", status).toString();
   }
 
   @Override

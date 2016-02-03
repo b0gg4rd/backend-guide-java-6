@@ -1,7 +1,9 @@
 package net.coatli.guide.javabackend.core.service.impl;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
@@ -56,39 +58,30 @@ public class EmployeeServiceImplTest {
   public void thatCreateEmployeeWithInvalidParamsWorks() {
     // given
     final CreateEmployeeEvent createEmployeeEvent = new CreateEmployeeEvent();
-    createEmployeeEvent.setEmployee(standardEmployee());
+    createEmployeeEvent.setEmployee(new Employee());
 
-    when(employeePersistenceService.createEmployee(createEmployeeEvent)).thenReturn(FAILURE);
+    when(employeePersistenceService.createEmployee(any(CreateEmployeeEvent.class))).thenReturn(FAILURE);
 
     // when
     final EmployeeCreatedEvent employeeCreatedEvent = service.createEmployee(createEmployeeEvent);
 
     //then
-    assertTrue(employeeCreatedEvent.getNewKey() == null);
+    assertFalse(employeeCreatedEvent.isDomainCreated());
   }
 
   @Test
   public void thatCreateEmployeeWithValidParamsWorks() {
     // given
     final CreateEmployeeEvent createEmployeeEvent = new CreateEmployeeEvent();
-    createEmployeeEvent.setEmployee(standardEmployee());
+    createEmployeeEvent.setEmployee(new Employee());
 
-    when(employeePersistenceService.createEmployee(createEmployeeEvent)).thenReturn(SUCCESS);
+    when(employeePersistenceService.createEmployee(any(CreateEmployeeEvent.class))).thenReturn(SUCCESS);
 
     // when
     final EmployeeCreatedEvent employeeCreatedEvent = service.createEmployee(createEmployeeEvent);
 
     //then
-    assertNotNull(employeeCreatedEvent);
-  }
-
-  private Employee standardEmployee() {
-    final Employee standardEmployee = new Employee();
-
-    standardEmployee.setFirstName("Juan");
-    standardEmployee.setPaternalSurname("Rulfo");
-
-    return standardEmployee;
+    assertTrue(employeeCreatedEvent.isDomainCreated());
   }
 
 }
