@@ -11,10 +11,10 @@ import net.coatli.guide.javabackend.events.employee.UpdateEmployeeEvent;
 import net.coatli.guide.javabackend.stereotype.Mapper;
 
 /**
- * Persistence's services for the element of the domain {@link Employee}.
+ * Persistence for the element of the domain {@link Employee}.
  */
 @Mapper
-public interface EmployeePersistenceService {
+public interface EmployeePersistence {
 
   public int createEmployee(CreateEmployeeEvent createEmployeeEvent);
 

@@ -14,12 +14,10 @@ public class EmployeeCreatedEvent extends CreatedEvent {
   private UUID newKey;
 
   public EmployeeCreatedEvent() {
-    super();
-    this.newKey = null;
   }
 
   public EmployeeCreatedEvent(final boolean domainCreated) {
-    super(domainCreated);
+    this.domainCreated = domainCreated;
   }
 
   public EmployeeCreatedEvent(final boolean domainCreated, final UUID newKey) {

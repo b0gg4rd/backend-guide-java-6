@@ -11,17 +11,17 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import net.coatli.guide.javabackend.core.domain.Employee;
-import net.coatli.guide.javabackend.core.domain.catalog.Catalog;
 import net.coatli.guide.javabackend.events.employee.CreateEmployeeEvent;
 import net.coatli.guide.javabackend.events.employee.RequestAllEmployeesEvent;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:/META-INF/spring/test-core-context.xml")
+@ContextConfiguration("classpath:/META-INF/spring/test-back-context.xml")
 @TransactionConfiguration(defaultRollback = true)
 public class EmployeePersistenceServiceIT {
 
@@ -30,10 +30,25 @@ public class EmployeePersistenceServiceIT {
   private static final int SUCCESS = 1;
 
   @Autowired
-  private EmployeePersistenceService service;
+  private EmployeePersistence service;
 
   @Test
-  public void thatCreateEmployeeWithValidParamsWorks() {
+  public void thatCreateEmployeeWithEmptyParamsFails() {
+    // given
+    final CreateEmployeeEvent createEmployeeEvent = new CreateEmployeeEvent();
+
+    try {
+      // when
+      service.createEmployee(createEmployeeEvent);
+
+    } catch (final Exception exc) {
+      // then
+      assertTrue(exc instanceof DataIntegrityViolationException);
+    }
+  }
+
+  @Test
+  public void thatCreateEmployeeWithValidParamsReturnSuccess() {
     // given
     final CreateEmployeeEvent createEmployeeEvent = new CreateEmployeeEvent();
     createEmployeeEvent.setEmployee(standardEmployee());
@@ -72,13 +87,8 @@ public class EmployeePersistenceServiceIT {
   private Employee standardEmployee() {
     final Employee standardEmployee = new Employee();
 
-    standardEmployee.setFirstName("Juan");
-    standardEmployee.setPaternalSurname("Rulfo");
-    standardEmployee.setMaternalSurname("Vizcaino");
+    standardEmployee.setName("Juan Rulfo");
     standardEmployee.setBirthday(Calendar.getInstance().getTime());
-    standardEmployee.setDepartment(new Catalog(10, "EDT", "Editorial department"));
-    standardEmployee.setRol(new Catalog(2, "WRT", "Writer"));
-    standardEmployee.setStatus(new Catalog(1, "ACTIVE", "Employee active"));
 
     if (LOGGER.isDebugEnabled()) {
       LOGGER.debug("standardEmployee: {}", standardEmployee);
@@ -86,4 +96,5 @@ public class EmployeePersistenceServiceIT {
 
     return standardEmployee;
   }
+
 }

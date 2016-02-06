@@ -9,13 +9,6 @@ public class CreatedEvent {
 
   protected boolean domainCreated;
 
-  public CreatedEvent() {
-  }
-
-  public CreatedEvent(final boolean domainCreated) {
-    this.domainCreated = domainCreated;
-  }
-
   public boolean isDomainCreated() {
     return domainCreated;
   }

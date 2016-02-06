@@ -15,7 +15,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import net.coatli.guide.javabackend.core.domain.Employee;
 import net.coatli.guide.javabackend.events.employee.CreateEmployeeEvent;
 import net.coatli.guide.javabackend.events.employee.EmployeeCreatedEvent;
-import net.coatli.guide.javabackend.persistence.EmployeePersistenceService;
+import net.coatli.guide.javabackend.persistence.EmployeePersistence;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EmployeeServiceImplTest {
@@ -28,7 +28,7 @@ public class EmployeeServiceImplTest {
   private EmployeeServiceImpl service;
 
   @Mock
-  private EmployeePersistenceService employeePersistenceService;
+  private EmployeePersistence employeePersistenceService;
 
   @Test
   public void thatCreateEmployeeWithNullParamsReturnNotNull() {
@@ -55,12 +55,14 @@ public class EmployeeServiceImplTest {
   }
 
   @Test
-  public void thatCreateEmployeeWithInvalidParamsWorks() {
+  public void thatCreateEmployeeWithInvalidParamsReturnFalse() {
     // given
     final CreateEmployeeEvent createEmployeeEvent = new CreateEmployeeEvent();
     createEmployeeEvent.setEmployee(new Employee());
 
-    when(employeePersistenceService.createEmployee(any(CreateEmployeeEvent.class))).thenReturn(FAILURE);
+    when(employeePersistenceService.createEmployee(
+        any(CreateEmployeeEvent.class)))
+      .thenReturn(FAILURE);
 
     // when
     final EmployeeCreatedEvent employeeCreatedEvent = service.createEmployee(createEmployeeEvent);
@@ -70,18 +72,37 @@ public class EmployeeServiceImplTest {
   }
 
   @Test
-  public void thatCreateEmployeeWithValidParamsWorks() {
+  public void thatCreateEmployeeWithValidParamsReturnTrue() {
     // given
     final CreateEmployeeEvent createEmployeeEvent = new CreateEmployeeEvent();
     createEmployeeEvent.setEmployee(new Employee());
 
-    when(employeePersistenceService.createEmployee(any(CreateEmployeeEvent.class))).thenReturn(SUCCESS);
+    when(employeePersistenceService.createEmployee(
+        any(CreateEmployeeEvent.class)))
+      .thenReturn(SUCCESS);
 
     // when
     final EmployeeCreatedEvent employeeCreatedEvent = service.createEmployee(createEmployeeEvent);
 
     //then
     assertTrue(employeeCreatedEvent.isDomainCreated());
+  }
+
+  @Test
+  public void thatCreateEmployeeWithValidParamsReturnValidKey() {
+    // given
+    final CreateEmployeeEvent createEmployeeEvent = new CreateEmployeeEvent();
+    createEmployeeEvent.setEmployee(new Employee());
+
+    when(employeePersistenceService.createEmployee(
+        any(CreateEmployeeEvent.class)))
+      .thenReturn(SUCCESS);
+
+    // when
+    final EmployeeCreatedEvent employeeCreatedEvent = service.createEmployee(createEmployeeEvent);
+
+    //then
+    assertTrue(createEmployeeEvent.getEmployee().getKey() == employeeCreatedEvent.getNewKey());
   }
 
 }

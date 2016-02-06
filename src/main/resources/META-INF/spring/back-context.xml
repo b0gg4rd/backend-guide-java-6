@@ -14,7 +14,7 @@
   		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
       
   <!-- Define runtime configuration -->
-  <context:property-placeholder location="classpath*:/META-INF/spring/core-context.properties"/>
+  <context:property-placeholder location="classpath*:/META-INF/spring/back-context.properties"/>
   
   <!-- datasource using placeholders -->
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">

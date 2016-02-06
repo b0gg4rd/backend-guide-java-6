@@ -9,13 +9,6 @@ public class ResponseReadEvent {
 
   protected boolean domainFound;
 
-  public ResponseReadEvent() {
-  }
-
-  public ResponseReadEvent(final boolean domainFound) {
-    this.domainFound = domainFound;
-  }
-
   public boolean isDomainFound() {
     return domainFound;
   }

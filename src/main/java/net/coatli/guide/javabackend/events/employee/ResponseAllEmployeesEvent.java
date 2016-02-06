@@ -1,5 +1,6 @@
 package net.coatli.guide.javabackend.events.employee;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -15,16 +16,15 @@ public class ResponseAllEmployeesEvent extends ResponseReadEvent {
   private List<Employee> employees;
 
   public ResponseAllEmployeesEvent() {
-    super();
   }
 
   public ResponseAllEmployeesEvent(final boolean domainFound) {
-    super(domainFound);
+    this.domainFound = domainFound;
   }
 
   public ResponseAllEmployeesEvent(final boolean domainFound, final List<Employee> employees) {
     this(domainFound);
-    this.employees = employees;
+    this.employees = Collections.unmodifiableList(employees);
   }
 
   public List<Employee> getEmployees() {

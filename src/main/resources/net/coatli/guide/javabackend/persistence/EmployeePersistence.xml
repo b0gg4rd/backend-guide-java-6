@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="net.coatli.guide.javabackend.persistence.EmployeePersistenceService">
+<mapper namespace="net.coatli.guide.javabackend.persistence.EmployeePersistence">
 
   <resultMap id="employeeResultMap" type="Employee">
     <result property="key"          javaType="java.util.UUID"    column="EMP_ID"       jdbcType="OTHER"   typeHandler="net.coatli.guide.javabackend.typehandler.UUIDTypeHandler" />
-    <result property="firstName"    javaType="string"            column="FISRT_NAME"   jdbcType="VARCHAR" />
+    <result property="name"         javaType="string"            column="NAME"         jdbcType="VARCHAR" />
     <result property="birthday"     javaType="date"              column="BIRTHDAY"     jdbcType="DATE" />
   </resultMap>
   
   <sql id="employeeAllColumns">
 	  EMP_ID,
-	  FIRST_NAME,
-	  PATERNAL_SURNAME,
-	  MATERNAL_SURNAME,
-	  BIRTHDAY,
-	  DEPARTMENT,
-	  ROL,
-	  STATUS
+	  NAME,
+	  BIRTHDAY
   </sql>
   
   <insert id="createEmployee"
@@ -26,14 +21,9 @@
       <include refid="employeeAllColumns" />
     )
     VALUES (
-      #{employee.key,              mode=IN, javaType=java.util.UUID,   jdbcType=OTHER},
-      #{employee.firstName,        mode=IN, javaType=String,           jdbcType=VARCHAR},
-      #{employee.paternalSurname,  mode=IN, javaType=String,           jdbcType=VARCHAR},
-      #{employee.maternalSurname,  mode=IN, javaType=String,           jdbcType=VARCHAR},
-      #{employee.birthday,         mode=IN, javaType=Date,             jdbcType=DATE},
-      #{employee.department.key,   mode=IN, javaType=Integer,          jdbcType=INTEGER},
-      #{employee.rol.key,          mode=IN, javaType=Integer,          jdbcType=INTEGER},
-      #{employee.status.key,       mode=IN, javaType=Integer,          jdbcType=INTEGER}
+      #{employee.key,         mode=IN, javaType=java.util.UUID,   jdbcType=OTHER},
+      #{employee.name,        mode=IN, javaType=String,           jdbcType=VARCHAR},
+      #{employee.birthday,    mode=IN, javaType=Date,             jdbcType=DATE}
     )
   </insert>
   
@@ -52,7 +42,7 @@
     UPDATE
       EMPLOYEE
     SET
-      NAME      = #{firstName,  mode=IN, javaType=String, jdbcType=VARCHAR},
+      NAME      = #{name,       mode=IN, javaType=String, jdbcType=VARCHAR},
       BIRTHDAY  = #{birthday,   mode=IN, javaType=Date,   jdbcType=DATE}
     WHERE
       EMP_ID = #{key, mode=IN, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=net.coatli.guide.javabackend.typehandler.UUIDTypeHandler}
@@ -73,11 +63,8 @@
     FROM
       EMPLOYEE
     <where>
-      <if test="departmentKey != null">
-      DEPARTMENT = #{departmentKey, mode=IN, javaType=Integer, jdbcType=NUMERIC}
-      </if>
-      <if test="rolKey != null">
-      AND ROL = #{rolKey, mode=IN, javaType=Integer, jdbcType=NUMERIC}
+      <if test="name != null">
+      NAME = #{name, mode=IN, javaType=String, jdbcType=VARCHAR},
       </if>
       <if test="birthday != null">
       AND BIRTHDAY = #{birthday, mode=IN, javaType=Date, jdbcType=DATE}

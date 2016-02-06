@@ -7,26 +7,22 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class RequestAllEmployeesEvent {
+import net.coatli.guide.javabackend.events.RequestReadEvent;
 
-  private Integer departmentKey;
-  private Integer rolKey;
+public class RequestAllEmployeesEvent extends RequestReadEvent {
+
+  private String name;
   private Date birthday;
 
-  public Integer getDepartmentKey() {
-    return departmentKey;
+  public RequestAllEmployeesEvent() {
   }
 
-  public void setDepartmentKey(final Integer departmentKey) {
-    this.departmentKey = departmentKey;
+  public String getName() {
+    return name;
   }
 
-  public Integer getRolKey() {
-    return rolKey;
-  }
-
-  public void setRolKey(final Integer rolKey) {
-    this.rolKey = rolKey;
+  public void setName(final String name) {
+    this.name = name;
   }
 
   public Date getBirthday() {
@@ -39,7 +35,7 @@ public class RequestAllEmployeesEvent {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).appendSuper(super.toString()).append("departmentKey", departmentKey).append("rolKey", rolKey).append("birthday", birthday).toString();
+    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).appendSuper(super.toString()).append("name", name).append("birthday", birthday).toString();
   }
 
   @Override
@@ -48,12 +44,12 @@ public class RequestAllEmployeesEvent {
       return false;
     }
     final RequestAllEmployeesEvent castOther = (RequestAllEmployeesEvent) other;
-    return new EqualsBuilder().append(departmentKey, castOther.departmentKey).append(rolKey, castOther.rolKey).append(birthday, castOther.birthday).isEquals();
+    return new EqualsBuilder().append(name, castOther.name).append(birthday, castOther.birthday).isEquals();
   }
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder().append(departmentKey).append(rolKey).append(birthday).toHashCode();
+    return new HashCodeBuilder().append(name).append(birthday).toHashCode();
   }
 
 }

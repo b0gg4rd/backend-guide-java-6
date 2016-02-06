@@ -1,5 +1,6 @@
 package net.coatli.guide.javabackend.core.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import net.coatli.guide.javabackend.events.employee.RequestEmployeeEvent;
 import net.coatli.guide.javabackend.events.employee.ResponseAllEmployeesEvent;
 import net.coatli.guide.javabackend.events.employee.ResponseEmployeeEvent;
 import net.coatli.guide.javabackend.events.employee.UpdateEmployeeEvent;
-import net.coatli.guide.javabackend.persistence.EmployeePersistenceService;
+import net.coatli.guide.javabackend.persistence.EmployeePersistence;
 
 /**
  * Implementation of {@link EmployeeService}.
@@ -25,10 +26,10 @@ import net.coatli.guide.javabackend.persistence.EmployeePersistenceService;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-  private static final int FAILURE = 0;
+  private static final int SUCCESS = 1;
 
   @Autowired
-  private EmployeePersistenceService employeePersistenceService;
+  private EmployeePersistence employeePersistenceService;
 
   @Override
   public EmployeeCreatedEvent createEmployee(final CreateEmployeeEvent createEmployeeEvent) {
@@ -37,9 +38,9 @@ public class EmployeeServiceImpl implements EmployeeService {
       return new EmployeeCreatedEvent(false);
     }
 
-    return FAILURE == employeePersistenceService.createEmployee(createEmployeeEvent) ?
-            new EmployeeCreatedEvent(false) :
-            new EmployeeCreatedEvent(true, createEmployeeEvent.getEmployee().getKey());
+    return SUCCESS == employeePersistenceService.createEmployee(createEmployeeEvent) ?
+        new EmployeeCreatedEvent(true, createEmployeeEvent.getEmployee().getKey()) :
+        new EmployeeCreatedEvent(false);
 
   }
 
@@ -48,25 +49,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     final Employee employee = employeePersistenceService.requestEmployee(requestEmployeeEvent);
 
-    return null == employee ?
-             new ResponseEmployeeEvent(false) :
-             new ResponseEmployeeEvent(true, employee);
+    return new ResponseEmployeeEvent(null == employee, employee);
   }
 
   @Override
   public EmployeeUpdatedEvent updateEmployee(final UpdateEmployeeEvent updateEmployeeEvent) {
 
-    return FAILURE == employeePersistenceService.updateEmployee(updateEmployeeEvent) ?
-            new EmployeeUpdatedEvent(false) :
-            new EmployeeUpdatedEvent(true);
+    return new EmployeeUpdatedEvent(SUCCESS == employeePersistenceService.updateEmployee(updateEmployeeEvent));
   }
 
   @Override
   public EmployeeDeletedEvent deleteEmployee(final DeleteEmployeeEvent deleteEmployeeEvent) {
 
-    return FAILURE == employeePersistenceService.deleteEmployee(deleteEmployeeEvent) ?
-            new EmployeeDeletedEvent(false) :
-            new EmployeeDeletedEvent(true);
+    return new EmployeeDeletedEvent(SUCCESS == employeePersistenceService.deleteEmployee(deleteEmployeeEvent));
   }
 
   @Override
@@ -74,7 +69,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     final List<Employee> allEmployees = employeePersistenceService.requestAllEmployees(requestAllInvoicesEvent);
 
-    return new ResponseAllEmployeesEvent(!allEmployees.isEmpty(), allEmployees);
+    return allEmployees.isEmpty() ?
+        new ResponseAllEmployeesEvent(false, Collections.emptyList()) :
+        new ResponseAllEmployeesEvent(true, allEmployees);
   }
 
 }

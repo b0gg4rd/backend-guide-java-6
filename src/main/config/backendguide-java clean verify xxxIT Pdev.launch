@@ -6,7 +6,7 @@
 <booleanAttribute key="M2_OFFLINE" value="false"/>
 <stringAttribute key="M2_PROFILES" value="dev"/>
 <listAttribute key="M2_PROPERTIES">
-<listEntry value="it.test=EmployeePersistenceServiceIT"/>
+<listEntry value="it.test=EmployeePersistenceServiceIT#thatCreateEmployeeWithNullParamsWorks"/>
 </listAttribute>
 <stringAttribute key="M2_RUNTIME" value="MAVEN 3.3.9"/>
 <booleanAttribute key="M2_SKIP_TESTS" value="false"/>

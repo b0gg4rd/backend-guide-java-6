@@ -13,11 +13,10 @@ public class ResponseEmployeeEvent extends ResponseReadEvent {
   private Employee employee;
 
   public ResponseEmployeeEvent() {
-    super();
   }
 
   public ResponseEmployeeEvent(final boolean domainFound) {
-    super(domainFound);
+    this.domainFound = domainFound;
   }
 
   public ResponseEmployeeEvent(final boolean domainFound, final Employee employee) {
