@@ -1,4 +1,4 @@
-package net.coatli.guide.javabackend.typehandler;
+package net.coatli.guide.javabackend.persistence.typehandler;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;

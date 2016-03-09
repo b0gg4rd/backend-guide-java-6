@@ -14,7 +14,7 @@
   		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
       
   <!-- Define runtime configuration -->
-  <context:property-placeholder location="classpath*:/META-INF/spring/back-context.properties"/>
+  <context:property-placeholder location="classpath*:/META-INF/spring/core-context.properties"/>
   
   <!-- datasource using placeholders -->
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -44,7 +44,7 @@
     <property name="typeAliasesPackage"
               value="net.coatli.guide.javabackend.core.domain,net.coatli.guide.javabackend.events" />
     <property name="typeHandlersPackage"
-              value="net.coatli.guide.javabackend.typehandler" />
+              value="net.coatli.guide.javabackend.persistence.typehandler" />
   </bean>
   
   <!-- scan for mappers and let them be autowired -->

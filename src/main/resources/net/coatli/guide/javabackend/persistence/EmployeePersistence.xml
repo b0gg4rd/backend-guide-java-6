@@ -4,7 +4,7 @@
 <mapper namespace="net.coatli.guide.javabackend.persistence.EmployeePersistence">
 
   <resultMap id="employeeResultMap" type="Employee">
-    <result property="key"          javaType="java.util.UUID"    column="EMP_ID"       jdbcType="OTHER"   typeHandler="net.coatli.guide.javabackend.typehandler.UUIDTypeHandler" />
+    <result property="key"          javaType="java.util.UUID"    column="EMP_ID"       jdbcType="OTHER"   typeHandler="net.coatli.guide.javabackend.persistence.typehandler.UUIDTypeHandler" />
     <result property="name"         javaType="string"            column="NAME"         jdbcType="VARCHAR" />
     <result property="birthday"     javaType="date"              column="BIRTHDAY"     jdbcType="DATE" />
   </resultMap>
@@ -35,7 +35,7 @@
     FROM
       EMPLOYEE
     WHERE
-      EMP_ID = #{key, mode=IN, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=net.coatli.guide.javabackend.typehandler.UUIDTypeHandler}
+      EMP_ID = #{key, mode=IN, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=net.coatli.guide.javabackend.persistence.typehandler.UUIDTypeHandler}
   </select>
   
   <update id="updateEmployee">
@@ -45,14 +45,14 @@
       NAME      = #{name,       mode=IN, javaType=String, jdbcType=VARCHAR},
       BIRTHDAY  = #{birthday,   mode=IN, javaType=Date,   jdbcType=DATE}
     WHERE
-      EMP_ID = #{key, mode=IN, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=net.coatli.guide.javabackend.typehandler.UUIDTypeHandler}
+      EMP_ID = #{key, mode=IN, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=net.coatli.guide.javabackend.persistence.typehandler.UUIDTypeHandler}
   </update>
   
   <delete id="deleteEmployee">
     DELETE FROM
       EMPLOYEE
     WHERE
-      EMP_ID = #{key, mode=IN, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=net.coatli.guide.javabackend.typehandler.UUIDTypeHandler}
+      EMP_ID = #{key, mode=IN, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=net.coatli.guide.javabackend.persistence.typehandler.UUIDTypeHandler}
   </delete>
   
   <select id="requestAllEmployees"

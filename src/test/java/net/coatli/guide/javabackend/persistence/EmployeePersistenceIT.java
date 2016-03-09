@@ -23,9 +23,9 @@ import net.coatli.guide.javabackend.events.employee.RequestAllEmployeesEvent;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/META-INF/spring/test-back-context.xml")
 @TransactionConfiguration(defaultRollback = true)
-public class EmployeePersistenceServiceIT {
+public class EmployeePersistenceIT {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(EmployeePersistenceServiceIT.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(EmployeePersistenceIT.class);
 
   private static final int SUCCESS = 1;
 

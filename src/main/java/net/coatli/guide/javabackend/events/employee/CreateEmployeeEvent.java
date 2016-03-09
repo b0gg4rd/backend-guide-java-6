@@ -12,6 +12,9 @@ public class CreateEmployeeEvent extends CreateEvent {
 
   private Employee employee;
 
+  public CreateEmployeeEvent() {
+  }
+
   public Employee getEmployee() {
     return employee;
   }

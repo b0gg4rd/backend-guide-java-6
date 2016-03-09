@@ -9,9 +9,8 @@ A reference for backend Java with CXF, Spring and MyBatis.
 
 ## Building
 
-For CLI use the follow common commands:
+For **CLI** use the follow common commands:
 
-- `$ mvn clean install`
-- `$ mvn clean install -P dev`
-- `$ mvn clean install -Dmaven.test.skip=true`
-  
+- `$ mvn clean package -Dmaven.test.skip=true`
+- `$ mvn clean test`
+- `$ mvn clean verify -P dev`
