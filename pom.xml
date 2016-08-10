@@ -42,10 +42,13 @@
     <project.build.jdk.source>1.8</project.build.jdk.source>
     <project.build.jdk.target>1.8</project.build.jdk.target>
     
+    <project.build.ut.skip>false</project.build.ut.skip>
+    
     <lifecycle.mapping.version>1.0.0</lifecycle.mapping.version>
     <properties.maven.plugin.version>1.0-alpha-2</properties.maven.plugin.version>
     <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
-    <maven.failsafe.plugin.version>2.18.1</maven.failsafe.plugin.version>
+    <maven.surefire.plugin.version>2.19.1</maven.surefire.plugin.version>
+    <maven.failsafe.plugin.version>2.19.1</maven.failsafe.plugin.version>
     
     <inmemdb.maven.plugin.version>1.2.0</inmemdb.maven.plugin.version>
     <flyway.maven.plugin.version>3.2.1</flyway.maven.plugin.version>
@@ -53,9 +56,11 @@
     <mybatis.spring.version>1.2.3</mybatis.spring.version>
     <mybatis.version>3.3.0</mybatis.version>
     <spring.version>3.2.14.RELEASE</spring.version>
-    <cxf.version>3.1.4</cxf.version>
     <commons.lang.version>3.4</commons.lang.version>
     <slf4j.log4j.version>1.7.12</slf4j.log4j.version>
+    <cxf.version>3.1.4</cxf.version>
+    <jackson.version>1.9.13</jackson.version>
+    <jackson.databind.version>2.2.3</jackson.databind.version>
     <junit.version>4.11</junit.version>
     <mockito.version>1.10.19</mockito.version>
   </properties>
@@ -100,6 +105,16 @@
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-frontend-jaxws</artifactId>
       <version>${cxf.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-jaxrs</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.databind.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -205,6 +220,14 @@
           <target>${project.build.jdk.target}</target>
           <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
+      </plugin>
+      <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+       <artifactId>maven-surefire-plugin</artifactId>
+       <version>${maven.surefire.plugin.version}</version>
+       <configuration>
+         <skip>${project.build.ut.skip}</skip>
+       </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

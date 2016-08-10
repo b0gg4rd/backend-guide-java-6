@@ -1,4 +1,4 @@
-package net.coatli.guide.javabackend.persistence;
+package net.coatli.guide.javabackend.core.persistence;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -17,11 +17,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import net.coatli.guide.javabackend.core.domain.Employee;
+import net.coatli.guide.javabackend.core.persistence.EmployeePersistence;
 import net.coatli.guide.javabackend.events.employee.CreateEmployeeEvent;
 import net.coatli.guide.javabackend.events.employee.RequestAllEmployeesEvent;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:/META-INF/spring/test-back-context.xml")
+@ContextConfiguration("classpath:/META-INF/spring/test-core-context.xml")
 @TransactionConfiguration(defaultRollback = true)
 public class EmployeePersistenceIT {
 

@@ -1,4 +1,4 @@
-package net.coatli.guide.javabackend.persistence;
+package net.coatli.guide.javabackend.core.persistence;
 
 import java.util.List;
 
@@ -25,4 +25,5 @@ public interface EmployeePersistence {
   public int deleteEmployee(DeleteEmployeeEvent deleteEmployeeEvent);
 
   public List<Employee> requestAllEmployees(RequestAllEmployeesEvent requestAllInvoicesEvent);
+  
 }

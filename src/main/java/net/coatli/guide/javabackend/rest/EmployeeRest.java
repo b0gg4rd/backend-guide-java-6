@@ -54,4 +54,5 @@ public interface EmployeeRest {
   @POST
   @Path(REQUEST_ALL_EMPLOYEES)
   public ResponseAllEmployeesEvent requestAllEmployees(RequestAllEmployeesEvent requestAllEmployeesEvent);
+
 }

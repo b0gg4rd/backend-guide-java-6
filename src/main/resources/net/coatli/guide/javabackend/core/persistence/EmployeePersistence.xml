@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="net.coatli.guide.javabackend.persistence.EmployeePersistence">
+<mapper namespace="net.coatli.guide.javabackend.core.persistence.EmployeePersistence">
 
   <resultMap id="employeeResultMap" type="Employee">
-    <result property="key"          javaType="java.util.UUID"    column="EMP_ID"       jdbcType="OTHER"   typeHandler="net.coatli.guide.javabackend.persistence.typehandler.UUIDTypeHandler" />
+    <result property="key"          javaType="java.util.UUID"    column="EMP_ID"       jdbcType="OTHER"   typeHandler="net.coatli.guide.javabackend.core.persistence.typehandler.UUIDTypeHandler" />
     <result property="name"         javaType="string"            column="NAME"         jdbcType="VARCHAR" />
     <result property="birthday"     javaType="date"              column="BIRTHDAY"     jdbcType="DATE" />
   </resultMap>
@@ -35,7 +35,7 @@
     FROM
       EMPLOYEE
     WHERE
-      EMP_ID = #{key, mode=IN, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=net.coatli.guide.javabackend.persistence.typehandler.UUIDTypeHandler}
+      EMP_ID = #{key, mode=IN, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=net.coatli.guide.javabackend.core.persistence.typehandler.UUIDTypeHandler}
   </select>
   
   <update id="updateEmployee">
@@ -45,14 +45,14 @@
       NAME      = #{name,       mode=IN, javaType=String, jdbcType=VARCHAR},
       BIRTHDAY  = #{birthday,   mode=IN, javaType=Date,   jdbcType=DATE}
     WHERE
-      EMP_ID = #{key, mode=IN, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=net.coatli.guide.javabackend.persistence.typehandler.UUIDTypeHandler}
+      EMP_ID = #{key, mode=IN, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=net.coatli.guide.javabackend.core.persistence.typehandler.UUIDTypeHandler}
   </update>
   
   <delete id="deleteEmployee">
     DELETE FROM
       EMPLOYEE
     WHERE
-      EMP_ID = #{key, mode=IN, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=net.coatli.guide.javabackend.persistence.typehandler.UUIDTypeHandler}
+      EMP_ID = #{key, mode=IN, javaType=java.util.UUID, jdbcType=OTHER, typeHandler=net.coatli.guide.javabackend.core.persistence.typehandler.UUIDTypeHandler}
   </delete>
   
   <select id="requestAllEmployees"

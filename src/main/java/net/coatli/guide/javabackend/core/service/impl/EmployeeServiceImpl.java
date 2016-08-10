@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import net.coatli.guide.javabackend.core.domain.Employee;
+import net.coatli.guide.javabackend.core.persistence.EmployeePersistence;
 import net.coatli.guide.javabackend.core.service.EmployeeService;
 import net.coatli.guide.javabackend.events.employee.CreateEmployeeEvent;
 import net.coatli.guide.javabackend.events.employee.DeleteEmployeeEvent;
@@ -18,7 +19,6 @@ import net.coatli.guide.javabackend.events.employee.RequestEmployeeEvent;
 import net.coatli.guide.javabackend.events.employee.ResponseAllEmployeesEvent;
 import net.coatli.guide.javabackend.events.employee.ResponseEmployeeEvent;
 import net.coatli.guide.javabackend.events.employee.UpdateEmployeeEvent;
-import net.coatli.guide.javabackend.persistence.EmployeePersistence;
 
 /**
  * Implementation of {@link EmployeeService}.

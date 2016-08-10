@@ -13,9 +13,9 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import net.coatli.guide.javabackend.core.domain.Employee;
+import net.coatli.guide.javabackend.core.persistence.EmployeePersistence;
 import net.coatli.guide.javabackend.events.employee.CreateEmployeeEvent;
 import net.coatli.guide.javabackend.events.employee.EmployeeCreatedEvent;
-import net.coatli.guide.javabackend.persistence.EmployeePersistence;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EmployeeServiceImplTest {

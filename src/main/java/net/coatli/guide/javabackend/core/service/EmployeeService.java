@@ -26,4 +26,5 @@ public interface EmployeeService {
   public EmployeeDeletedEvent deleteEmployee(DeleteEmployeeEvent deleteEmployeeEvent);
 
   public ResponseAllEmployeesEvent requestAllEmployees(RequestAllEmployeesEvent requestAllEmployeesEvent);
+  
 }
