@@ -14,16 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.coatli.guide.javabackend.core.domain.Employee;
-import net.coatli.guide.javabackend.core.persistence.EmployeePersistence;
 import net.coatli.guide.javabackend.events.employee.CreateEmployeeEvent;
 import net.coatli.guide.javabackend.events.employee.RequestAllEmployeesEvent;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/META-INF/spring/test-core-context.xml")
-@TransactionConfiguration(defaultRollback = true)
+@Transactional
 public class EmployeePersistenceIT {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EmployeePersistenceIT.class);

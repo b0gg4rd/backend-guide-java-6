@@ -25,16 +25,20 @@ public class Employee {
     return name;
   }
 
-  public void setName(final String name) {
+  public Employee setName(String name) {
     this.name = name;
+  
+    return this;
   }
 
   public Date getBirthday() {
     return birthday;
   }
 
-  public void setBirthday(final Date birthday) {
+  public Employee setBirthday(Date birthday) {
     this.birthday = birthday;
+  
+    return this;
   }
 
   public UUID getKey() {
@@ -43,16 +47,21 @@ public class Employee {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).appendSuper(super.toString()).append("key", key).append("name", name).append("birthday", birthday).toString();
+    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).appendSuper(super.toString()).append("key", key)
+        .append("name", name).append("birthday", birthday).toString();
   }
 
   @Override
   public boolean equals(final Object other) {
+    if (this == other) {
+      return true;
+    }
     if (!(other instanceof Employee)) {
       return false;
     }
-    final Employee castOther = (Employee) other;
-    return new EqualsBuilder().append(key, castOther.key).append(name, castOther.name).append(birthday, castOther.birthday).isEquals();
+    Employee castOther = (Employee) other;
+    return new EqualsBuilder().append(key, castOther.key).append(name, castOther.name)
+        .append(birthday, castOther.birthday).isEquals();
   }
 
   @Override

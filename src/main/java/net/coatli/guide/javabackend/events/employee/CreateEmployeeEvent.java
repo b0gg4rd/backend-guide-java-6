@@ -19,8 +19,10 @@ public class CreateEmployeeEvent extends CreateEvent {
     return employee;
   }
 
-  public void setEmployee(final Employee employee) {
+  public CreateEmployeeEvent setEmployee(Employee employee) {
     this.employee = employee;
+  
+    return this;
   }
 
   @Override
