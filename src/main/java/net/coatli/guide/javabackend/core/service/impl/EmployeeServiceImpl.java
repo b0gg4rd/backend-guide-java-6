@@ -1,6 +1,5 @@
 package net.coatli.guide.javabackend.core.service.impl;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     return SUCCESS == employeePersistenceService.createEmployee(createEmployeeEvent) ?
         new EmployeeCreatedEvent(true, createEmployeeEvent.getEmployee().getKey()) :
-        new EmployeeCreatedEvent(false);
+          new EmployeeCreatedEvent(false);
 
   }
 
@@ -69,9 +68,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     final List<Employee> allEmployees = employeePersistenceService.requestAllEmployees(requestAllInvoicesEvent);
 
-    return allEmployees.isEmpty() ?
-        new ResponseAllEmployeesEvent(false, Collections.emptyList()) :
-        new ResponseAllEmployeesEvent(true, allEmployees);
+    return new ResponseAllEmployeesEvent()
+        .setEmployees(allEmployees)
+        .setDomainFound(allEmployees.isEmpty());
   }
 
 }

@@ -1,6 +1,5 @@
 package net.coatli.guide.javabackend.events.employee;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -16,28 +15,23 @@ public class ResponseAllEmployeesEvent extends ResponseReadEvent {
   private List<Employee> employees;
 
   public ResponseAllEmployeesEvent() {
-  }
-
-  public ResponseAllEmployeesEvent(final boolean domainFound) {
-    this.domainFound = domainFound;
-  }
-
-  public ResponseAllEmployeesEvent(final boolean domainFound, final List<Employee> employees) {
-    this(domainFound);
-    this.employees = Collections.unmodifiableList(employees);
+    super();
   }
 
   public List<Employee> getEmployees() {
     return employees;
   }
 
-  public void setEmployees(final List<Employee> employees) {
+  public ResponseAllEmployeesEvent setEmployees(final List<Employee> employees) {
     this.employees = employees;
+
+    return this;
   }
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).appendSuper(super.toString()).append("employees", employees).toString();
+    return new ToStringBuilder(this, ToStringStyle.JSON_STYLE).appendSuper(super.toString())
+        .append("employees", employees).toString();
   }
 
   @Override
@@ -46,12 +40,12 @@ public class ResponseAllEmployeesEvent extends ResponseReadEvent {
       return false;
     }
     final ResponseAllEmployeesEvent castOther = (ResponseAllEmployeesEvent) other;
-    return new EqualsBuilder().appendSuper(super.equals(other)).append(employees, castOther.employees).isEquals();
+    return new EqualsBuilder().append(employees, castOther.employees).isEquals();
   }
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder().appendSuper(super.hashCode()).append(employees).toHashCode();
+    return new HashCodeBuilder().append(employees).toHashCode();
   }
 
 }
