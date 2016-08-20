@@ -149,7 +149,7 @@
   </dependencies>
   
   <build>
-    <finalName>${project.artifactId}</finalName>
+    <finalName>${back.context}</finalName>
     
     <resources>
       <resource>
@@ -262,6 +262,9 @@
         <artifactId>flyway-maven-plugin</artifactId>
         <version>${flyway.maven.plugin.version}</version>
         <configuration>
+          <locations>
+            <location>/META-INF/db/migration</location>
+          </locations>
           <skip>${maven.test.skip}</skip>
         </configuration>
         <executions>
@@ -273,6 +276,31 @@
 				    </goals>
 				  </execution>
 				</executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <path>/${project.build.finalName}</path>
+          <fork>true</fork>
+        </configuration>
+        <executions>
+          <execution>
+            <id>tomcat7-maven-run</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>run-war-only</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>tomcat7-maven-shutdown</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>shutdown</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
