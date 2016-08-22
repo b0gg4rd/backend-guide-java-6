@@ -188,7 +188,7 @@
                     </goals>
                   </pluginExecutionFilter>
                   <action>
-                    <ignore></ignore>
+                    <ignore />
                   </action>
                 </pluginExecution>
               </pluginExecutions>
@@ -281,10 +281,6 @@
         <groupId>org.apache.tomcat.maven</groupId>
         <artifactId>tomcat7-maven-plugin</artifactId>
         <version>2.2</version>
-        <configuration>
-          <path>/${project.build.finalName}</path>
-          <fork>true</fork>
-        </configuration>
         <executions>
           <execution>
             <id>tomcat7-maven-run</id>
@@ -301,11 +297,6 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>sonar-maven-plugin</artifactId>
-        <version>2.3</version>
       </plugin>
     </plugins>
   </build>

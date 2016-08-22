@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context>
+  <ResourceLink name="ds/backDS" global="ds/backDS" auth="Container" type="javax.sql.DataSource" />
+</Context>

@@ -9,15 +9,12 @@
 
   <import resource="classpath:/META-INF/spring/core-context.xml"/>
   
-  <!-- Defining runtime values -->
-  <context:property-placeholder location="classpath:/META-INF/spring/test-core-context.properties" />
-  
   <!-- Datasource using placeholders -->
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    <property name="driverClassName" value="${datasource.driver}" />
-    <property name="url"             value="${datasource.url}" />
-    <property name="username"        value="${datasource.username}" />
-    <property name="password"        value="${datasource.password}" />
+    <property name="driverClassName" value="${database.driver}" />
+    <property name="url"             value="${database.url}" />
+    <property name="username"        value="${database.username}" />
+    <property name="password"        value="${database.password}" />
   </bean>
   
 </beans>
