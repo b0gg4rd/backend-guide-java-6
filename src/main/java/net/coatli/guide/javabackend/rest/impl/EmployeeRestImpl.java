@@ -1,7 +1,9 @@
 package net.coatli.guide.javabackend.rest.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import net.coatli.guide.javabackend.core.service.EmployeeService;
 import net.coatli.guide.javabackend.events.employee.CreateEmployeeEvent;
@@ -19,8 +21,10 @@ import net.coatli.guide.javabackend.rest.EmployeeRest;
 /**
  * Implementation for the REST {@link EmployeeRest}.
  */
-@Service
+@Component
 public class EmployeeRestImpl implements EmployeeRest {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeRestImpl.class);
 
   @Autowired
   private EmployeeService employeeService;
@@ -67,6 +71,10 @@ public class EmployeeRestImpl implements EmployeeRest {
   @Override
   public ResponseAllEmployeesEvent requestAllEmployees(
       final RequestAllEmployeesEvent requestAllEmployeesEvent) {
+
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug("requestAllEmployees input: {}", requestAllEmployeesEvent);
+    }
 
     return employeeService.requestAllEmployees(requestAllEmployeesEvent);
   }
