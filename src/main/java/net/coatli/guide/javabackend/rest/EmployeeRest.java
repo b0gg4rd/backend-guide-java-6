@@ -23,36 +23,27 @@ import net.coatli.guide.javabackend.events.employee.UpdateEmployeeEvent;
  */
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@Path("/employee")
 public interface EmployeeRest {
 
-  public static final String CREATE_EMPLOYEE = "/employee/create";
-
-  public static final String REQUEST_EMPLOYEE = "/employee/request";
-
-  public static final String UPDATE_EMPLOYEE = "/employee/update";
-
-  public static final String DELETE_EMPLOYEE = "/employee/delete";
-
-  public static final String REQUEST_ALL_EMPLOYEES = "/employee/requestall";
-
   @POST
-  @Path(CREATE_EMPLOYEE)
+  @Path("/create")
   public EmployeeCreatedEvent createEmployee(CreateEmployeeEvent createEmployeeEvent);
 
   @POST
-  @Path(REQUEST_EMPLOYEE)
+  @Path("/request")
   public ResponseEmployeeEvent requestEmployee(RequestEmployeeEvent requestEmployeeEvent);
 
   @POST
-  @Path(UPDATE_EMPLOYEE)
+  @Path("/update")
   public EmployeeUpdatedEvent updateEmployee(UpdateEmployeeEvent updateEmployeeEvent);
 
   @POST
-  @Path(DELETE_EMPLOYEE)
+  @Path("/delete")
   public EmployeeDeletedEvent deleteEmployee(DeleteEmployeeEvent deleteEmployeeEvent);
 
   @POST
-  @Path(REQUEST_ALL_EMPLOYEES)
+  @Path("/requestall")
   public ResponseAllEmployeesEvent requestAllEmployees(RequestAllEmployeesEvent requestAllEmployeesEvent);
 
 }

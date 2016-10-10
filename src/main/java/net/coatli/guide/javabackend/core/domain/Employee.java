@@ -3,6 +3,8 @@ package net.coatli.guide.javabackend.core.domain;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.xml.bind.annotation.XmlElement;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -13,6 +15,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class Employee {
 
+  @XmlElement(name = "key")
   private final UUID key;
   private String name;
   private Date birthday;
@@ -25,9 +28,9 @@ public class Employee {
     return name;
   }
 
-  public Employee setName(String name) {
+  public Employee setName(final String name) {
     this.name = name;
-  
+
     return this;
   }
 
@@ -35,9 +38,9 @@ public class Employee {
     return birthday;
   }
 
-  public Employee setBirthday(Date birthday) {
+  public Employee setBirthday(final Date birthday) {
     this.birthday = birthday;
-  
+
     return this;
   }
 
@@ -59,7 +62,7 @@ public class Employee {
     if (!(other instanceof Employee)) {
       return false;
     }
-    Employee castOther = (Employee) other;
+    final Employee castOther = (Employee) other;
     return new EqualsBuilder().append(key, castOther.key).append(name, castOther.name)
         .append(birthday, castOther.birthday).isEquals();
   }

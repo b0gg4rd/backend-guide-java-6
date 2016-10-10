@@ -9,12 +9,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>net.coatli.guide</groupId>
-  <artifactId>backendguide-java</artifactId>
+  <artifactId>backend-guide-java-6</artifactId>
   <version>0.1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>Backend Guide for Java</name>
-  <description>A reference for backend Java with CXF, Spring and MyBatis.</description>
+  <name>Backend Guide for Java 6</name>
+  <description>A reference for backend Java 6 with CXF, Spring and MyBatis</description>
   <url />
   <organization>
     <name />
@@ -40,8 +40,8 @@
     <project.build.filterDirectory>${basedir}/src/main/filters</project.build.filterDirectory>
     
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.build.jdk.source>1.8</project.build.jdk.source>
-    <project.build.jdk.target>1.8</project.build.jdk.target>
+    <project.build.jdk.source>1.6</project.build.jdk.source>
+    <project.build.jdk.target>1.6</project.build.jdk.target>
     
     <project.build.ut.skip>false</project.build.ut.skip>
     
@@ -66,6 +66,8 @@
     <mockito.version>1.10.19</mockito.version>
     
     <tomcat7.maven.plugin.version>2.2</tomcat7.maven.plugin.version>
+    
+    <back.context>backend</back.context>
   </properties>
 
   <dependencies>

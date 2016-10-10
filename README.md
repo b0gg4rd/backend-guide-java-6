@@ -1,11 +1,11 @@
-# Backend Guide for Java
+# Backend Guide for Java 6
 
-A reference for backend Java with CXF, Spring and MyBatis.
+A reference for backend Java 6 with CXF, Spring and MyBatis.
 
 ## Requirements
 
-- JDK 1.8 update 65
-- Apache Maven 3.3.9
+- JDK 1.6 update 45
+- Apache Maven 3.2.5
 
 ## Building
 

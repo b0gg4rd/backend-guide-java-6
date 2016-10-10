@@ -32,11 +32,12 @@
   </cxf:bus>
 
   <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
-
+  
   <jaxrs:server id="backend" address="/">
     <jaxrs:providers>
       <ref bean='jsonProvider' />
     </jaxrs:providers>
+
     <jaxrs:serviceBeans>
       <ref bean="employeeRestImpl" />
     </jaxrs:serviceBeans>

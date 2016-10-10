@@ -21,10 +21,10 @@ public class EmployeeRestIT {
   private String employeeCreateUrl;
 
   @Test
-  public void thatCreateEmployeeReturnNotNullWorks() {
+  public void thatCreateEmployeeReturnNotNull4RestWorks() {
     // given
-    final CreateEmployeeEvent createEmployeeEvent = new CreateEmployeeEvent();
-    createEmployeeEvent.setEmployee(new Employee());
+    final CreateEmployeeEvent createEmployeeEvent= new CreateEmployeeEvent().setEmployee(
+        new Employee().setName("Marie Shelly"));
 
     // when
     final EmployeeCreatedEvent employeeCreatedEvent = new RestTemplate().postForObject(

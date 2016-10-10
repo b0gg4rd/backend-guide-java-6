@@ -11,6 +11,7 @@ public class ResponseReadEvent {
     return domainFound;
   }
 
+  @SuppressWarnings("unchecked")
   public <T extends ResponseReadEvent> T setDomainFound(final boolean domainFound) {
     this.domainFound = domainFound;
 

@@ -1,4 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Context>
-  <ResourceLink name="ds/backDS" global="ds/backDS" auth="Container" type="javax.sql.DataSource" />
+
+  <Resource name="ds/backDS"
+            auth="Container"
+            type="javax.sql.DataSource"
+            driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/employeesDB"
+            username="backDB"
+            password="back123"
+            maxActive="8"
+            maxIdle="4" />
+
 </Context>

@@ -33,7 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
   @Override
   public EmployeeCreatedEvent createEmployee(final CreateEmployeeEvent createEmployeeEvent) {
 
-    if (createEmployeeEvent == null || createEmployeeEvent.getEmployee() == null) {
+    if ((createEmployeeEvent == null) || (createEmployeeEvent.getEmployee() == null)) {
       return new EmployeeCreatedEvent(false);
     }
 
@@ -70,7 +70,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     return new ResponseAllEmployeesEvent()
         .setEmployees(allEmployees)
-        .setDomainFound(allEmployees.isEmpty());
+        .setDomainFound(!allEmployees.isEmpty());
   }
 
 }
